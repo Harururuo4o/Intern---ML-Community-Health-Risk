@@ -1,0 +1,19 @@
+
+#Keep Health Data off GitHub
+data/
+*.csv
+
+#Python Temporary Files
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+#Jupyter Temporary Files
+.ipynb_checkpoints/
+
+#Secrets
+.env
+
+#PyCharm Project Settings
+.idea/
