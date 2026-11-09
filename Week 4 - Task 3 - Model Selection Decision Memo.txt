@@ -1,0 +1,25 @@
+﻿Model Selection Decision Memo
+Project Overview
+The purpose of this experiment was to compare the different machine learning models to predict whether a client will experience a crisis within 90 days with the data we already had. The primary goal was to identify as many potential crisis cases as possible, this makes our primary evaluation metric is recall. 
+The success criteria that were established for this experiment were:
+- Recall: at least 0.80
+- F1 Score: at least 0.62
+
+
+Model Comparison
+Three main models were used for evaluation: Logistic Regression, Random Forest, and Gradient Boosting with a baseline being the Majority-Class Dummy.
+
+
+Model
+Model                  | Threshold | Validation Recall | Validation F1 Score
+-----------------------|-----------|------------------|--------------------
+Majority-Class Dummy   | Default   | 0.0              | 0.0
+Logistic Regression    | 0.50      | 0.774            | 0.617
+Random Forest          | 0.30      | 0.792            | 0.636
+Gradient Boosting      | 0.50      | 0.679            | 0.791
+
+The Logistic Regression model was used as the original baseline to compare against. The Majority-Class Dummy classifier always predicts the majority class to be no_crisis and, as a result, it failed to identify any crisis cases. This establishes a baseline performance of zero for both the recall and F1 score. From the table we can see that the Random Forest improved the score of recall and F1 score after the threshold tuning but we still haven’t reach our recall goal of 0.80. While Gradient Boosting have achieved the highest F1 score, but the recall was lower compared to the other two models.
+
+
+Selected Model and Rationale 
+The model that I decided to go with is the Random Forest model with a threshold of 0.30. At this threshold, the Random Forest has achieved a validation recall of 0.792 and an F1 score of 0.636. Even through this results haven’t achieve what the intended goal of a 0.80 recall, this test came the closest among all the other tests I have done with Random Forest and Gradient Boosting. The Gradient Boosting achieved a higher F1 score of 0.791 at a threshold of 0.50, but the recall was pretty low at 0.679. Since the main goal is to identify potential crisis cases, I decided to prioritize the Random Forest model, which had a stronger recall, over the Gradient Boosting model with a stronger F1 score. A recall of 0.792 also means that roughly 1 in 5 actual crisis cases may be missed by the model, so frontline workers should not rely on its predictions alone. They should continue to use their own professional judgement when deciding who needs the support.
