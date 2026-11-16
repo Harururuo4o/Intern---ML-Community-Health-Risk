@@ -1,0 +1,61 @@
+﻿Fairness Audit Plan
+Project Overview
+The purpose of the fairness audit is to determine whether the model I selected will perform differently across the different client subgroups. The goal is to identify potential differences in the model's performance and understand whether certain groups will have more missed crisis predictions than others. 
+
+This audit will focus on the Random Forest model with a classification threshold of 0.30.
+
+
+Subgroup Evaluation
+These are the subgroups that I will be using for the fairness audit:
+
+
+| Subgroup | Data Feature | Reason |
+|---|---|---|
+| Region | region | Compare the model performance across each region |
+| Age Group | age_group | Compare the model performance across the age groups |
+| Housing Status | housing_status | To see whether any housing status will affect the model predictions |
+| Substance Use Flag | substance_use_flag | To compare the model performance of clients who use and do not use substances |
+
+Note: The substance use flag was removed from the selected model, it will still be included in the audit to see if the model will perform differs between the groups. 
+
+
+Fairness Metrics
+These are the metrics I will be using to calculate for each subgroup
+
+
+| Metric | Purpose |
+|---|---|
+| Recall | Measures how many crisis cases the model can correctly identify |
+| False Negative Rate | Measures how many crisis cases the model misses |
+| Precision | Measures how many predicted crisis cases are actual crises |
+| F1 Score | Helps evaluate the model performance by considering both the precision and recall |	
+
+I will be focusing more on recall and the false negative rate because having a missing crisis case could have serious consequences on and for the clients. 
+
+
+Sample Size Considerations
+The audit will record how many clients and crisis cases are in each subgroup. This will help us determine whether there is enough data to compare the groups fairly. If there are groups with fewer clients, it may have less reliable results, so I need to be careful when it comes to interpreting the results. If there is any missing subgroup information, it will also be recorded and considered during the analysis. 
+
+
+Fairness Comparison Approach 
+The model’s performance will be compared across each subgroup using the selected fairness metrics. The analysis will look for the difference in recall and false negative rates to see if there are certain groups that will have more missed crisis predictions than others. The precision and F1 score will also be reviewed to understand how the model performs across the different groups.  The potential performance results will be documented and investigated.
+
+
+Acceptable Performance Gap
+The audit will use a 10 percentage point recall gap as the threshold for identifying the possible difference in the model performance between the subgroups. If the recall difference between the groups is greater than 10 percentage points, it will be flagged for further investigation, and if the difference is 10 percentage points or lower, it will not be flagged. 
+
+
+Reliability and Reporting
+The audit will use fewer than 20 crisis cases as the cutoff for applying the low confidence label. This will help identify subgroups where the results may be less reliable because of the low number of crisis cases. 
+
+
+| Subgroup | Total Clients | Crisis Cases | Reliability Note|
+|---|---|---|---|
+| Delta Basin | 133 | 17 | Low sample, interpret with caution |
+| Young Adult | 324 | 14 | Low sample, interpret with caution |
+| Adult | 408 | 15 | Low sample, interpret with caution |
+| Unknown Age Group | 171 | 19 | Low sample, interpret with caution |
+
+Currently, in the full dataset, the other subgroups have at least 20 crisis cases. However, their results will still be included in the total number of clients and crisis cases. 
+
+These notes will help the frontline workers to understand how reliable the results are for each subgroup. Groups with fewer crisis cases may have less reliable results since a few missed cases can impact the metrics.
