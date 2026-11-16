@@ -1,0 +1,20 @@
+﻿Fairness Findings and Deployment Recommendations
+Residual Risks
+The fairness audit has identified several risks that remain within the selected Random Forest model I chose in Week 4. The region and housing status subgroups had a recall gaps of 24.9 and 56.2 percentage points, and both gaps have exceeded the 10 percentage point threshold that I established in the fairness audit plan. Age group analysis also showed a large recall gap of 92.9 percentage points, but since the Adult and Young Adult groups had very few actual crisis cases, there was not enough evidence to determine whether the model is performing unfairly for these groups. Another risk that this model has is that it does not identify every client who may have experienced a crisis because the overall validation recall was a 79.2. This means that the model has missed out on some actual crisis cases, with these results it have shown that the model still has limitations and should be evaluated further before any deployment. 
+
+
+Tradeoff Explanations
+The reason the Random Forest model from Week 4 was selected because it provided a reasonable balance between recall and F1 score compared to the other models that were tested. With a threshold of 0.30, this Random Forest model has achieved a 79.2% recall, 53.2% precision, and an F1 score of 0.636. For Week 5, we have done the mitigation experiments to see if removing certain features or adjusting the classification threshold could reduce the recall gaps between the subgroups. From the mitigation experiments, removing the region or housing status features did not resolve the flagged recall gaps. On top of that, adjusting the classification threshold also did not resolve the recall gaps, as higher thresholds slightly reduced the region gap but increased the housing status gap while also lowering the overall recall. Based on these results we got, I believe keeping the original Random Forest model with a threshold of 0.30 is still the best option so far. However, even with this, the model still has some fairness issues that should be looked into further.
+
+
+Recommended Deployment Guardrails
+Before we put the model into use, we need to make sure there are several safeguards in place to reduce the potential risk and ensure that the model is being used responsibly. These are the safeguards I believe should be put in place:
+* Human Oversight: A human should review the model predictions and use their professional judgement when making any decision about a client outreach and care. The model should be treated as a decision support tool rather than something that replaces professional judgement. 
+* Do Not Only Rely on the Model Predictions: A client should not be denied any support solely because the model predicts they have a low risk of crisis. 
+* Subgroup Monitoring: Recall and false negative rates should keep on being monitored across region, age group, housing status and substance use flag groups. Some particular attention should be given to:
+   * Gulf Coast had 68.4% recall compared to Inland Valley with a recall of 93.3%
+   * Stable Housed had a recall of 43.8% compared to Doubled Up and Unknown groups with a recall of 100%
+   * Adult and Young Adult groups have a recall of 0% compared to Senior Adults with a recall of 92.9%
+      * These age group results need to be interpreted with caution because of their small sample sizes
+   * Substance use flag group needs to continue to be monitored, even though their recall gap was below the established threshold, with a 9 percentage point recall gap
+* Getting Additional Data: More data should be collected for the smaller subgroups to improve the reliability of the model for the future fairness evaluations, and the model should be reassessed as new data becomes available so that the performance remains reliable and to identify any new fairness concerns.
